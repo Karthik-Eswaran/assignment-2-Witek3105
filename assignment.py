@@ -29,16 +29,13 @@ def use_function_from_module(module_name: str, function_name: str, *args) -> Any
         module = importlib.import_module(module_name)
     except ModuleNotFoundError:
         raise ModuleNotFoundError(f"Module not found: {module_name}")
-
     if not hasattr(module, function_name):
         raise AttributeError(
             f"Function '{function_name}' not found in module '{module_name}'"
         )
-
     func = getattr(module, function_name)
     if not callable(func):
         raise TypeError(
             f"'{function_name}' in module '{module_name}' is not callable"
         )
-
     return func(*args)
